@@ -1,5 +1,6 @@
 package com.hyf.mybatis.test;
 
+import com.hyf.mybatis.mapper.TestBatchInsertMapper;
 import com.hyf.mybatis.mapper.UserMapper;
 import com.hyf.mybatis.pojo.User;
 import com.hyf.mybatis.util.MapperUtil;
@@ -9,17 +10,34 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestHello {
 
     private ApplicationContext ioc = new ClassPathXmlApplicationContext("applicationContext.xml");
     private UserMapper userMapper = ioc.getBean(UserMapper.class);
+    private TestBatchInsertMapper batchInsertMapper = ioc.getBean(TestBatchInsertMapper.class);
 
+    /**
+     * 结合spring方式执行
+     */
     @Test
     void testHello() {
         List<User> users = userMapper.selectAll();
         System.out.println(users);
+    }
+
+    /**
+     * java方式执行
+     */
+    @Test
+    public void testJavaInvoke() {
+        try (SqlSession sqlSession = MapperUtil.getSqlSession()) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            List<User> users = mapper.selectAll();
+            System.out.println(users);
+        }
     }
 
     /**
@@ -43,11 +61,11 @@ public class TestHello {
     }
 
     @Test
-    public void testJavaInvoke() {
-        try (SqlSession sqlSession = MapperUtil.getSqlSession()) {
-            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            List<User> users = mapper.selectAll();
-            System.out.println(users);
-        }
+    public void testBatchInsert () {
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User(null, "测试批量插入01", null));
+        users.add(new User(null, "测试批量插入02", null));
+        Integer success = batchInsertMapper.batchInsert(users);
+        System.out.println(success);
     }
 }
