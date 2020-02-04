@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hyf.mybatisplus</groupId>
+    <groupId>com.hyf.mybatis</groupId>
     <artifactId>learn-mybatis-plus</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -20,11 +20,12 @@
     </properties>
 
     <dependencies>
-        <!-- MyBatis基础包 -->
+        <!-- mybatis-plus包 -->
+        <!-- 会自动引用 mybatis mybatis-spring -->
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.4.6</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.3</version>
         </dependency>
 
         <!-- mysql驱动包 -->
