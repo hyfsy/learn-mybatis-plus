@@ -2,7 +2,6 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
-<!--suppress MybatisGenerateCustomPluginInspection -->
 <generatorConfiguration>
 
     <!-- 引用外部文件 -->
@@ -33,7 +32,7 @@
 
         <javaClientGenerator targetPackage="${dir.imapper}" targetProject="src/main/java" type="XMLMAPPER"/>
 
-        <table tableName="class">
+        <table tableName="class" domainObjectName="Class">
             <generatedKey column="c_id" sqlStatement="JDBC"/>
         </table>
 
