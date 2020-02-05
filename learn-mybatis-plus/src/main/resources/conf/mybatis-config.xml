@@ -4,14 +4,7 @@
 <configuration>
     <properties resource="jdbc.properties"/>
 
-    <settings>
-        <!-- 映射数据库的字段为驼峰命名 -->
-        <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="lazyLoadingEnabled" value="true"/>
-        <setting name="aggressiveLazyLoading" value="false"/>
-        <setting name="cacheEnabled" value="true"/>
-    </settings>
-
+    <!-- 只需配置数据源即可 -->
     <environments default="learn_mysql">
         <environment id="learn_mysql">
             <transactionManager type="JDBC"/>
@@ -33,7 +26,4 @@
         </environment>
     </environments>
 
-    <mappers>
-        <!--<mapper resource="mapper/UserMapper.xml"/>-->
-    </mappers>
 </configuration>
