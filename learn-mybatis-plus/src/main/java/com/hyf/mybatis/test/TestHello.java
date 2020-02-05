@@ -96,4 +96,10 @@ public class TestHello {
         System.out.println(size);
     }
 
+    @Test
+    public void testMBG() {
+        MPGeneratorUtil.addTable("mp_class");
+        MPGeneratorUtil.generate();
+    }
+
 }
