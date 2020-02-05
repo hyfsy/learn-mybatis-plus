@@ -1,20 +1,32 @@
 package com.hyf.mybatis.pojo;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 
 @TableName("mp_user")
-public class User {
+public class User extends Model<User> {
 
-    @TableId("id")
-    private Integer userId;
+    /**
+     * 插入操作会默认获取主键值
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer userId; // 默认自动转换 userId -> user_id
     @TableField("name")
     private String userName;
     @TableField("age")
     private Integer userAge;
 
     public User() {
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.userId;
     }
 
     public User(Integer userId, String userName, Integer userAge) {
