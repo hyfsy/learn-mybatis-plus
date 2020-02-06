@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.Version;
 import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
@@ -20,6 +21,8 @@ public class User extends Model<User> {
     private String userName;
     @TableField("age")
     private Integer userAge;
+    @Version // 设置此数据库对应列为 乐观锁判断的版本列
+    private Integer version;
 
     public User() {
     }
@@ -33,6 +36,13 @@ public class User extends Model<User> {
         this.userId = userId;
         this.userName = userName;
         this.userAge = userAge;
+    }
+
+    public User(Integer userId, String userName, Integer userAge, Integer version) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userAge = userAge;
+        this.version = version;
     }
 
     public Integer getUserId() {
@@ -57,6 +67,14 @@ public class User extends Model<User> {
 
     public void setUserAge(Integer userAge) {
         this.userAge = userAge;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     @Override

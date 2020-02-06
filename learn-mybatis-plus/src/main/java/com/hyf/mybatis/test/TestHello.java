@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.hyf.mybatis.mapper.LogicUserMapper;
 import com.hyf.mybatis.mapper.UserMapper;
+import com.hyf.mybatis.pojo.LogicUser;
 import com.hyf.mybatis.pojo.User;
 import com.hyf.mybatis.util.MPGeneratorUtil;
 import com.hyf.mybatis.util.MybatisPlusUtil;
@@ -18,6 +20,7 @@ public class TestHello {
     static {
         // 注册需要使用的mapper
         MybatisPlusUtil.addMapper(UserMapper.class);
+        MybatisPlusUtil.addMapper(LogicUserMapper.class);
     }
 
     @Test
@@ -94,6 +97,8 @@ public class TestHello {
         System.out.println(offset);
         System.out.println(total);
         System.out.println(size);
+        List<User> records = userPage.getRecords();
+        System.out.println(records);
     }
 
     @Test
@@ -102,4 +107,31 @@ public class TestHello {
         MPGeneratorUtil.generate();
     }
 
+    @Test
+    public void testSqlExplain() {
+        User user = new User();
+        // user.delete(null);
+    }
+    
+    @Test
+    public void testOptimisticLock() {
+        User user = new User(1,"测试修改名称",null,1);
+        boolean b = user.updateById();
+        System.out.println(b);
+    }
+
+    @Test
+    public void testAutoSqlInjector() {
+        try (SqlSession sqlSession = MybatisPlusUtil.getSqlSession()) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            long effect = mapper.deleteAll();
+            System.out.println(effect);
+        }
+    }
+
+    @Test
+    public void testLogicDelete() {
+        LogicUser user = new LogicUser();
+        user.deleteById(2);
+    }
 }

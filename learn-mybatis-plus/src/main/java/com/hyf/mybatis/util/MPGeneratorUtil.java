@@ -27,7 +27,7 @@ public class MPGeneratorUtil {
     private static StrategyConfig strategyConfig = new StrategyConfig();
     private static InjectionConfig injectionConfig = null;
 
-    static{
+    static {
         String path = projectPath + "/src/main/resources/jdbc.properties";
         try {
             prop.load(new FileReader(path));
@@ -64,7 +64,7 @@ public class MPGeneratorUtil {
     /**
      * 添加生成文件的表
      */
-    public static void addTable(String tableName){
+    public static void addTable(String tableName) {
         strategyConfig.setInclude(tableName); // 生成的表名，多个可用[,]分割
     }
 
@@ -153,7 +153,7 @@ public class MPGeneratorUtil {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + File.separator + prop.getProperty("dir.resources") + "/mapper/" + tableInfo.getEntityName() + "Mapper.xml";
+                return projectPath + File.separator + prop.getProperty("dir.resources") + File.separator + prop.getProperty("dir.mapper") + File.separator + tableInfo.getEntityName() + "Mapper.xml";
             }
         });
         injectionConfig.setFileOutConfigList(fileOutConfigList);
