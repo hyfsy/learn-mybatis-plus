@@ -4,14 +4,17 @@ import com.baomidou.mybatisplus.MybatisConfiguration;
 import com.baomidou.mybatisplus.MybatisMapperRegistry;
 import com.baomidou.mybatisplus.MybatisXMLLanguageDriver;
 import com.baomidou.mybatisplus.entity.GlobalConfiguration;
+import com.baomidou.mybatisplus.incrementer.OracleKeyGenerator;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
+import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.plugins.SqlExplainInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.hyf.mybatis.mapper.MyAutoSqlInject;
+import com.hyf.mybatis.mapper.MyMetaObjectHandler;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.Configuration;
@@ -96,7 +99,10 @@ public class MybatisPlusUtil {
         // conf.setSqlInjector(new MyAutoSqlInject());
         // 逻辑删除
         conf.setSqlInjector(new LogicSqlInjector());
-        // conf.setMetaObjectHandler(new H2MetaObjectHandler());
+        // 设置自定义元数据处理器，处理公共字段填充
+        conf.setMetaObjectHandler(new MyMetaObjectHandler());
+        // 设置主键生成策略为Oracle
+        conf.setKeyGenerator(new OracleKeyGenerator());
         return conf;
     }
 

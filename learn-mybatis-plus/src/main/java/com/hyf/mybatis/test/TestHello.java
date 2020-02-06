@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.hyf.mybatis.mapper.LogicUserMapper;
+import com.hyf.mybatis.mapper.OracleUserMapper;
 import com.hyf.mybatis.mapper.UserMapper;
 import com.hyf.mybatis.pojo.LogicUser;
+import com.hyf.mybatis.pojo.OracleUser;
 import com.hyf.mybatis.pojo.User;
 import com.hyf.mybatis.util.MPGeneratorUtil;
 import com.hyf.mybatis.util.MybatisPlusUtil;
@@ -21,6 +23,7 @@ public class TestHello {
         // 注册需要使用的mapper
         MybatisPlusUtil.addMapper(UserMapper.class);
         MybatisPlusUtil.addMapper(LogicUserMapper.class);
+        MybatisPlusUtil.addMapper(OracleUserMapper.class);
     }
 
     @Test
@@ -133,5 +136,23 @@ public class TestHello {
     public void testLogicDelete() {
         LogicUser user = new LogicUser();
         user.deleteById(2);
+    }
+    
+    @Test
+    public void testMyMetaObjectHandler() {
+        User user = new User();
+        user.insert();
+    }
+
+    @Test
+    public void testOracleSequence() {
+        OracleUser oracleUser = new OracleUser(null, "测试oracle自增主键");
+        oracleUser.insert();
+    }
+
+    @Test
+    public void testMySqlInsertAfterSequence() {
+        User user = new User(null,"测试还能插入",33);
+        user.insert();
     }
 }

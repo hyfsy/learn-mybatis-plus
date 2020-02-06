@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.Version;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class User extends Model<User> {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer userId; // 默认自动转换 userId -> user_id
-    @TableField("name")
+    @TableField(value = "name", fill = FieldFill.INSERT)
     private String userName;
     @TableField("age")
     private Integer userAge;
