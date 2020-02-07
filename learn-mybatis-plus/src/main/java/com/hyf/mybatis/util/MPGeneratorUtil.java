@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +27,9 @@ public class MPGeneratorUtil {
     private static InjectionConfig injectionConfig = null;
 
     static {
-        String path = projectPath + "/src/main/resources/jdbc.properties";
         try {
-            prop.load(new FileReader(path));
+            // 保证能获取当前项目的resources路径中的资源文件
+            prop.load(MPGeneratorUtil.class.getClassLoader().getResourceAsStream("jdbc.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
